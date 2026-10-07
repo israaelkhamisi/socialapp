@@ -140,24 +140,24 @@ return(<>
 )}
       {image && <img src={image} alt="post" className="w-full object-cover" />}
 
-    {sharedPost && (
-  <div className="mx-4 mb-3 overflow-hidden rounded-2xl border border-gray-200 bg-slate-50">
+{sharedPost && (
+  <div className="mx-4 mb-3 overflow-hidden rounded-2xl border border-gray-200 bg-slate-50 dark:border-gray-700 dark:bg-gray-900">
     <div className="flex items-center justify-between p-4">
       <div className="flex items-center gap-3">
         <Avatar img={sharedPost.user.photo} rounded size="sm" />
         <div>
-          <p className="text-sm font-bold text-gray-900">{sharedPost.user.name}</p>
-          <p className="text-xs text-gray-500">@{sharedPost.user.username}</p>
+          <p className="text-sm font-bold text-gray-900 dark:text-white">{sharedPost.user.name}</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">@{sharedPost.user.username}</p>
         </div>
       </div>
       <Link
         to={`/PostsDetails/${sharedPost._id}`}
-        className="flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:underline"
+        className="flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:underline dark:text-blue-400"
       >
         Original Post <i className="fa-solid fa-arrow-up-right-from-square text-xs"></i>
       </Link>
     </div>
-    {sharedPost.body && <p className="px-4 pb-3 text-gray-800">{sharedPost.body}</p>}
+    {sharedPost.body && <p className="px-4 pb-3 text-gray-800 dark:text-gray-200">{sharedPost.body}</p>}
     {sharedPost.image && <img src={sharedPost.image} alt="original" className="w-full object-cover" />}
   </div>
 )}

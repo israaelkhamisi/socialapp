@@ -77,8 +77,8 @@ const bookmarks:Post[]= bookmarksData?.data.data.bookmarks ?? []
 
   return ( <>
    <title>Profile</title>
-    <div className="mx-auto w-full max-w-6xl px-4 py-8">
-     <div className="w-full overflow-hidden rounded-3xl bg-white shadow-sm">
+    <div className="mx-auto w-full max-w-6xl px-2 py-8 sm:px-4">
+     <div className="w-full overflow-hidden rounded-3xl bg-white shadow-sm dark:bg-gray-800">
 
   <div
     className="relative h-56 bg-linear-to-r from-slate-800 via-blue-900 to-sky-500 bg-cover bg-center"
@@ -95,83 +95,81 @@ const bookmarks:Post[]= bookmarksData?.data.data.bookmarks ?? []
       />
     </label>
   </div>
-  <div className="group relative mx-4 -mt-20 mb-6 rounded-3xl bg-white/90 p-6 backdrop-blur md:mx-10">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-          
-<div className="flex flex-col items-center gap-4 text-center sm:flex-row sm:text-start">
-  <div className="relative">
-    <div
-      onClick={() => setShowPhoto(true)}
-      className="cursor-pointer rounded-full border-4 border-blue-100 bg-white p-1"
-    >
-      <Avatar img={userData.photo} rounded size="xl" />
+
+  <div className="group relative mx-3 -mt-20 mb-6 rounded-3xl bg-white/90 p-4 backdrop-blur sm:p-6 md:mx-10 dark:bg-gray-800/90">
+    <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+
+      <div className="flex flex-col items-center gap-4 text-center sm:flex-row sm:text-start">
+        <div className="relative">
+          <div
+            onClick={() => setShowPhoto(true)}
+            className="cursor-pointer rounded-full border-4 border-blue-100 bg-white p-1 dark:border-gray-700 dark:bg-gray-800"
+          >
+            <Avatar img={userData.photo} rounded size="xl" />
+          </div>
+
+          <button
+            onClick={() => setShowPhoto(true)}
+            className="absolute bottom-0 left-0 flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-blue-600 opacity-0 shadow-sm transition-opacity group-hover:opacity-100 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-blue-400 dark:hover:bg-gray-600"
+          >
+            <i className="fa-solid fa-expand"></i>
+          </button>
+
+          <label className="absolute right-0 bottom-0 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-blue-600 text-white opacity-0 shadow-sm transition-opacity group-hover:opacity-100 hover:bg-blue-700">
+            <i className="fa-solid fa-camera"></i>
+            <input
+              onChange={(e) => { e.target.files?.[0] && mutate(e.target.files[0]) }}
+              type="file"
+              accept="image/*"
+              hidden
+            />
+          </label>
+        </div>
+
+        <div>
+          <h1 className="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white">{userData.name}</h1>
+          <p className="text-base text-gray-500 dark:text-gray-400">@{userData.username}</p>
+          <span className="mt-2 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-sm font-semibold text-blue-700 dark:border-blue-900 dark:bg-blue-900/30 dark:text-blue-400">
+            <i className="fa-solid fa-user-group"></i> Route Posts member
+          </span>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-3 gap-2 sm:gap-3">
+        {stats.map((item) => (
+          <div key={item.label} className="min-w-0 rounded-2xl border border-gray-200 bg-white px-1 py-5 text-center sm:px-4 dark:border-gray-700 dark:bg-gray-900">
+            <p className="truncate text-[10px] font-semibold tracking-normal text-gray-500 uppercase sm:text-xs sm:tracking-wide dark:text-gray-400">{item.label}</p>
+            <p className="mt-1 text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white">{item.value}</p>
+          </div>
+        ))}
+      </div>
     </div>
 
-    <button
-      onClick={() => setShowPhoto(true)}
-      className="absolute  opacity-0 transition-opacity group-hover:opacity-100 bottom-0 left-0 flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-blue-600 shadow-sm hover:bg-gray-50"
-    >
-      <i className="fa-solid fa-expand"></i>
-    </button>
+    <div className="mt-6 grid gap-4 lg:grid-cols-3">
+      <div className="rounded-2xl border border-gray-200 bg-slate-50 p-5 lg:col-span-2 dark:border-gray-700 dark:bg-gray-900">
+        <h2 className="mb-3 font-bold text-gray-900 dark:text-white">About</h2>
+        <p className="flex items-center gap-3 break-all text-gray-600 dark:text-gray-300">
+          <i className="fa-regular fa-envelope w-4"></i> {userData.email}
+        </p>
+        <p className="mt-2 flex items-center gap-3 text-gray-600 dark:text-gray-300">
+          <i className="fa-solid fa-user-group w-4"></i> Active on Route Posts
+        </p>
+      </div>
 
-    <label className="absolute opacity-0 transition-opacity group-hover:opacity-100 right-0 bottom-0 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-blue-600 text-white shadow-sm hover:bg-blue-700">
-      <i className="fa-solid fa-camera"></i>
-      <input
-        onChange={(e) => { e.target.files?.[0] && mutate(e.target.files[0]) }}
-        type="file"
-        accept="image/*"
-        hidden
-      />
-    </label>
-  </div>
-
-  <div>
-    <h1 className="text-3xl font-extrabold text-gray-900 md:text-1xl">{userData.name}</h1>
-    <p className="text-1xl text-gray-500">@{userData.username}</p>
-    <span className="mt-2 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-sm font-semibold text-blue-700">
-      <i className="fa-solid fa-user-group"></i> Route Posts member
-    </span>
+      <div className="flex flex-col gap-4">
+        <div className="rounded-2xl border border-blue-100 bg-slate-50 p-5 dark:border-gray-700 dark:bg-gray-900">
+          <p className="text-xs font-semibold tracking-wide text-blue-800 uppercase dark:text-blue-400">My posts</p>
+          <p className="mt-1 text-2xl font-extrabold text-gray-900 dark:text-white">{myposts.length}</p>
+        </div>
+        <div className="rounded-2xl border border-blue-100 bg-slate-50 p-5 dark:border-gray-700 dark:bg-gray-900">
+          <p className="text-xs font-semibold tracking-wide text-blue-800 uppercase dark:text-blue-400">Saved posts</p>
+          <p className="mt-1 text-2xl font-extrabold text-gray-900 dark:text-white">{bookmarks.length}</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-     
-            <div className="grid grid-cols-3 gap-3">
-              {stats.map((item) => (
-                <div key={item.label} className="rounded-2xl border border-gray-200 bg-white px-4 py-5 text-center sm:px-8">
-                  <p className="text-xs font-semibold tracking-wide text-gray-500 uppercase">{item.label}</p>
-                  <p className="mt-1 text-3xl font-extrabold text-gray-900">{item.value}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-     
-          <div className="mt-6 grid gap-4 lg:grid-cols-3">
-          
-            <div className="rounded-2xl border border-gray-200 bg-slate-50 p-5 lg:col-span-2">
-              <h2 className="mb-3 font-bold text-gray-900">About</h2>
-              <p className="flex items-center gap-3 text-gray-600">
-                <i className="fa-regular fa-envelope w-4"></i> {userData.email}
-              </p>
-              <p className="mt-2 flex items-center gap-3 text-gray-600">
-                <i className="fa-solid fa-user-group w-4"></i> Active on Route Posts
-              </p>
-            </div>
-
-          
-            <div className="flex flex-col gap-4">
-              <div className="rounded-2xl border border-blue-100 bg-slate-50 p-5">
-                <p className="text-xs font-semibold tracking-wide text-blue-800 uppercase">My posts</p>
-                <p className="mt-1 text-2xl font-extrabold text-gray-900">{myposts.length}</p>
-              </div>
-              <div className="rounded-2xl border border-blue-100 bg-slate-50 p-5">
-                <p className="text-xs font-semibold tracking-wide text-blue-800 uppercase">Saved posts</p>
-                <p className="mt-1 text-2xl font-extrabold text-gray-900">{bookmarks.length}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
  {showPhoto && (
   <div
     onClick={() => setShowPhoto(false)}
@@ -192,28 +190,28 @@ const bookmarks:Post[]= bookmarksData?.data.data.bookmarks ?? []
     />
   </div>
 )}
-<div className="mt-6 flex items-center justify-between rounded-3xl border border-gray-100 bg-white p-3 shadow-sm">
-  <div className="flex gap-1 rounded-2xl bg-slate-100 p-1">
-    <button onClick={()=>setactivetab('posts')} className={`flex items-center gap-2 rounded-xl  px-4 py-2 font-semibold ${isactive == 'posts' ? "bg-white text-blue-600 shadow-sm rounded-lg"  : "text-gray-600 hover:text-gray-900"} `}>
+
+<div className="mt-6 flex items-center justify-between rounded-3xl border border-gray-100 bg-white p-3 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+  <div className="flex gap-1 rounded-2xl bg-slate-100 p-1 dark:bg-gray-900">
+    <button onClick={() => setactivetab('posts')} className={`flex items-center gap-2 rounded-xl px-4 py-2 font-semibold ${isactive == 'posts' ? 'bg-white text-blue-600 shadow-sm dark:bg-gray-700 dark:text-blue-400' : 'text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white'}`}>
       <i className="fa-regular fa-file-lines"></i> My Posts
     </button>
-    <button  onClick={()=>setactivetab('saved')} className={` flex items-center gap-2 rounded-xl px-4 py-2 font-semibold ${ isactive == 'saved' ? "bg-white text-blue-600 shadow-sm" : "text-gray-600 hover:text-gray-900" }`}>
+    <button onClick={() => setactivetab('saved')} className={`flex items-center gap-2 rounded-xl px-4 py-2 font-semibold ${isactive == 'saved' ? 'bg-white text-blue-600 shadow-sm dark:bg-gray-700 dark:text-blue-400' : 'text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white'}`}>
       <i className="fa-regular fa-bookmark"></i> Saved
     </button>
   </div>
 
-  <span className="rounded-full bg-blue-50 px-3 py-1 text-sm font-bold text-blue-600">{isactive === 'posts'? myposts.length : bookmarks.length}</span>
+  <span className="rounded-full bg-blue-50 px-3 py-1 text-sm font-bold text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">{isactive === 'posts' ? myposts.length : bookmarks.length}</span>
 </div>
 
-<div className="mt-6 flex flex-col gap-6 ">
- {isactive === 'posts' && myposts.map((post) => (
-  <PostCard key={post._id} element={post} />
-))}
-{isactive ==='saved'&& bookmarks.map((post)=>(
-  <PostCard key={post._id} element={post} bookmarked={true} />
-))}
+<div className="mt-6 flex flex-col gap-6">
+  {isactive === 'posts' && myposts.map((post) => (
+    <PostCard key={post._id} element={post} />
+  ))}
+  {isactive === 'saved' && bookmarks.map((post) => (
+    <PostCard key={post._id} element={post} />
+  ))}
 </div>
     </div>
-    
   </>)
 }

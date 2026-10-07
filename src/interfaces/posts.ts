@@ -68,4 +68,7 @@ username:'string',
 email:'string',
 photo:'string',
 cover:'string'
+followersCount?: number
+followingCount?: number
+bookmarks?: string[]
  }

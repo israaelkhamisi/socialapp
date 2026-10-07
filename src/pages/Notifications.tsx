@@ -75,35 +75,35 @@ const { mutate: handleReadAll } = useMutation({
 })
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-6">
+    <div className="mx-auto w-full max-w-6xl px-2 py-6 sm:px-4">
       <title>Notifications</title>
-      <div className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm">
-    
-        <div className="border-b border-gray-200 p-6">
+      <div className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
+
+        <div className="border-b border-gray-200 p-4 sm:p-6 dark:border-gray-700">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
-              <h1 className="text-3xl font-extrabold text-gray-900">Notifications</h1>
-              <p className="mt-1 text-gray-500">Realtime updates for likes, comments, shares, and follows.</p>
+              <h1 className="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white">Notifications</h1>
+              <p className="mt-1 text-gray-500 dark:text-gray-400">Realtime updates for likes, comments, shares, and follows.</p>
             </div>
             <button
-             onClick={() => handleReadAll()}
-               disabled={unreadcount === 0}
-             className="flex items-center gap-2 self-start rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 font-semibold text-gray-700 hover:bg-gray-100">
+              onClick={() => handleReadAll()}
+              disabled={unreadcount === 0}
+              className="flex items-center gap-2 self-start rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 font-semibold text-gray-700 hover:bg-gray-100 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+            >
               <i className="fa-solid fa-check-double"></i> Mark all as read
             </button>
           </div>
 
-        
           <div className="mt-5 flex gap-2">
             <button
               onClick={() => setfillter('all')}
-              className={`rounded-full px-5 py-2 font-semibold ${fillter === 'all' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-gray-700 hover:bg-slate-200'}`}
+              className={`rounded-full px-5 py-2 font-semibold ${fillter === 'all' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-gray-700 hover:bg-slate-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'}`}
             >
               All
             </button>
             <button
               onClick={() => setfillter('unread')}
-              className={`flex items-center gap-2 rounded-full px-5 py-2 font-semibold ${fillter === 'unread' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-gray-700 hover:bg-slate-200'}`}
+              className={`flex items-center gap-2 rounded-full px-5 py-2 font-semibold ${fillter === 'unread' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-gray-700 hover:bg-slate-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'}`}
             >
               Unread
               {unreadcount > 0 && (
@@ -113,10 +113,9 @@ const { mutate: handleReadAll } = useMutation({
           </div>
         </div>
 
-        
-        <div className="flex flex-col gap-3 p-5">
+        <div className="flex flex-col gap-3 p-3 sm:p-5">
           {notifications.length === 0 && (
-            <p className="py-10 text-center text-gray-500">No notifications here.</p>
+            <p className="py-10 text-center text-gray-500 dark:text-gray-400">No notifications here.</p>
           )}
 
           {shownNotifications.map((element) => {
@@ -124,37 +123,45 @@ const { mutate: handleReadAll } = useMutation({
             return (
               <div
                 key={element._id}
-                className={`flex gap-4 rounded-2xl border p-5 ${element.isRead ? 'border-gray-200 bg-white' : 'border-blue-100 bg-blue-50'}`}
+                className={`flex gap-4 rounded-2xl border p-4 sm:p-5 ${
+                  element.isRead
+                    ? 'border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800'
+                    : 'border-blue-100 bg-blue-50 dark:border-blue-900 dark:bg-blue-900/20'
+                }`}
               >
                 <div className="relative h-fit shrink-0">
                   <Avatar img={element.actor.photo} rounded size="md" />
-                  <span className={`absolute -right-1 -bottom-6 flex h-7 w-7 items-center justify-center rounded-full bg-white text-xs shadow-sm ${info?.color}`}>
+                  <span className={`absolute -right-1 -bottom-6 flex h-7 w-7 items-center justify-center rounded-full bg-white text-xs shadow-sm dark:bg-gray-700 ${info?.color}`}>
                     <i className={info?.icon}></i>
                   </span>
                 </div>
 
                 <div className="min-w-0 flex-1">
                   <div className="flex items-start justify-between gap-3">
-                    <p className="text-gray-700">
-                      <Link to={`/user/${element.actor._id}`}
-                    className="font-bold text-gray-900 hover:text-blue-600 hover:underline"> {element.actor.name}</Link>{' '}{info?.text} 
+                    <p className="text-gray-700 dark:text-gray-300">
+                      <Link
+                        to={`/user/${element.actor._id}`}
+                        className="font-bold text-gray-900 hover:text-blue-600 hover:underline dark:text-white dark:hover:text-blue-400"
+                      >
+                        {element.actor.name}
+                      </Link>{' '}{info?.text}
                     </p>
-                    <div className="flex shrink-0 items-center gap-3 text-sm text-gray-500">
+                    <div className="flex shrink-0 items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
                       {dayjs(element.createdAt).fromNow()}
                       {!element.isRead && <span className="h-1.5 w-1.5 rounded-full bg-blue-600"></span>}
                     </div>
                   </div>
 
-                  <p className="mt-1 truncate text-gray-600">{element.entity.name ?? element.entity.body}</p>
+                  <p className="mt-1 truncate text-gray-600 dark:text-gray-400">{element.entity.name ?? element.entity.body}</p>
 
                   {element.isRead ? (
-                    <p className="mt-3 flex items-center gap-2 text-sm font-semibold text-green-600">
+                    <p className="mt-3 flex items-center gap-2 text-sm font-semibold text-green-600 dark:text-green-400">
                       <i className="fa-solid fa-check"></i> Read
                     </p>
                   ) : (
                     <button
                       onClick={() => handleisread(element._id)}
-                      className="mt-3 flex items-center gap-2 rounded-lg border border-blue-100 bg-white px-3 py-1.5 text-sm font-semibold text-blue-600 hover:bg-blue-50"
+                      className="mt-3 flex items-center gap-2 rounded-lg border border-blue-100 bg-white px-3 py-1.5 text-sm font-semibold text-blue-600 hover:bg-blue-50 dark:border-blue-900 dark:bg-gray-800 dark:text-blue-400 dark:hover:bg-gray-700"
                     >
                       <i className="fa-solid fa-check"></i> Mark as read
                     </button>

@@ -64,22 +64,24 @@ let shownPosts = postslist
 if (activeTab === 'myposts') shownPosts = myposts
 if (activeTab === 'saved') shownPosts = savedPosts
 return (<> <title>Feed</title>
-  <div className="mx-auto grid w-full  max-w-7xl gap-6 px-4 py-6 lg:grid-cols-[260px_1fr] xl:grid-cols-[260px_1fr_340px]">
+  <div className="mx-auto grid w-full  max-w-7xl gap-6 px-2 sm:px-4 py-6 lg:grid-cols-[260px_1fr] xl:grid-cols-[260px_1fr_340px]">
  
-    <nav className="hidden lg:block rounded-3xl bg-white p-3 shadow-sm self-start sticky top-24">
-    {tabs.map((tab) => (
-  <button
-    key={tab.key}
-    onClick={() => setActiveTab(tab.key)}
-    className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 font-semibold ${
-      activeTab === tab.key ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50'
-    }`}
-  >
-    <i className={tab.icon}></i>
-    {tab.label}
-  </button>
-))}
-    </nav >
+ <nav className="hidden lg:block self-start sticky top-24 rounded-3xl bg-white p-3 shadow-sm dark:bg-gray-800">
+  {tabs.map((tab) => (
+    <button
+      key={tab.key}
+      onClick={() => setActiveTab(tab.key)}
+      className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 font-semibold ${
+        activeTab === tab.key
+          ? 'bg-blue-50 text-blue-600 dark:bg-gray-700 dark:text-blue-400'
+          : 'text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700'
+      }`}
+    >
+      <i className={tab.icon}></i>
+      {tab.label}
+    </button>
+  ))}
+</nav>
 
   
     <div className="flex min-w-0 flex-col gap-6 ">
